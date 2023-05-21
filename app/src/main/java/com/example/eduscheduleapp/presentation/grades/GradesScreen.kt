@@ -221,13 +221,13 @@ fun listTostring(list : MutableList<Mark>) : String{
 
 fun calculateGPA(list : MutableList<Mark>) : Double{
     var GPA = 0.0
-    var count = true
+    var count = 0
+    if (list.isEmpty()) return 0.0
     list.forEach {
-        if(count) GPA = it.value.toDouble()
-        else GPA = (GPA + it.value) / 2
-        count = false
+        GPA += it.value
+        count++
     }
-    return GPA
+    return GPA / count
 }
 
 fun roundOffDecimal(number: Double): Double? {

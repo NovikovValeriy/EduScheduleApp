@@ -3,6 +3,7 @@ package com.example.eduscheduleapp.presentation.events
 
 import android.os.Bundle
 import android.graphics.drawable.shapes.Shape
+import android.util.Log
 import android.widget.GridLayout
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
@@ -34,7 +35,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.hilt.navigation.compose.hiltViewModel
+import coil.compose.AsyncImage
+import coil.compose.rememberAsyncImagePainter
 import com.example.eduscheduleapp.R
+import com.example.eduscheduleapp.common.Constants
 
 @Composable
 fun EventsScreen(
@@ -58,11 +62,11 @@ fun EventsScreen(
                             .border(2.dp, color = Color.Gray, shape = RoundedCornerShape(7.dp))
                     ) {
                         if(event.photo != null) {
-                            Image(
-                                painter = painterResource(id = R.drawable.gordon),
+                            AsyncImage(
+                                model = Constants.BASE_URL + "api/v1/events/photo/${event.id}/",
                                 contentDescription = null,
                                 modifier = Modifier
-                                    .padding(horizontal = 10.dp)
+                                    .padding(all = 10.dp)
                                     .fillMaxSize()
                                     .clip(RoundedCornerShape(7.dp)),
                                 contentScale = ContentScale.Crop
@@ -75,14 +79,13 @@ fun EventsScreen(
                             fontWeight = FontWeight.Medium
                         )
                         Text(
-                            text = event.name,//"Идущий к реке",
+                            text = event.name,
                             fontSize = 20.sp,
                             fontWeight = FontWeight.Medium,
                             modifier = Modifier.padding(horizontal = 10.dp)
                         )
                         Text(
-                            text = event.description,//"Я в своем познании настолько преисполнился что я как будто бы уже сто триллионов миллиардов лет проживаю на триллионах и триллионах таких же планет, понимаешь как эта земля. Мне уже этот мир абсолютно понятен и я здесь ищу только покоя, умиротворения и вот этой гармонии от слияния бесконечного с вечным, созерцания того великого фрактального подобия и от вот этого вот замечательного всеединства существа (бесконечно-вечным). Куда не посмотри, хоть в глубь бесконечно малое, хоть в высь бесконечно большое, понимаешь. Вот ты мне опять со своими это там, иди суетись дальше это твое распределение, это твой путь и твой горизонт познаний, ощущений своей природы, но оно несоизмерим мелок по сравнению с моим, понимаешь, я как-будто бы уже глубокий старец, бессмертный, или там уже почти бессмертный который на этой планете с ее самого зарождения, еще когда только солнце только-только сформировалось как звезда, и вот это газо-пылевое облако сформировалось после взрыва солнца, когда оно вспыхнуло, как звезда, начал формировать эти планеты, понимаешь, я и на этой земле уже как-будто уже почти 5 миллиардов лет живу, ее знаю уже вдоль и поперек этот весь мир. А ты мне там про какие-то абстрактные понятия, мне пофиг, я иду как глубокий старец узривший вечностное, прикоснувшийся к божественному, сам стал богоподобно устремлен в бесконечное, и который умиротворение, гармонии, покоя и благодати, сокровенном блаженстве прибывает, вовлеченный во все и во вся, понимаешь?",
-                            //text = item.description,
+                            text = event.description,
                             modifier = Modifier.padding(all = 10.dp)
                         )
                     }
