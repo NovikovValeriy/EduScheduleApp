@@ -63,7 +63,7 @@ fun EventsScreen(
                     ) {
                         if(event.photo != null) {
                             AsyncImage(
-                                model = Constants.BASE_URL + "api/v1/events/photo/${event.id}/",
+                                model = Constants.BASE_URL + "eduschedule/api/v1/events/photo/${event.id}/",
                                 contentDescription = null,
                                 modifier = Modifier
                                     .padding(all = 10.dp)

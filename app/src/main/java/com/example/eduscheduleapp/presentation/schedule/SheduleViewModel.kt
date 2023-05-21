@@ -22,11 +22,11 @@ class SheduleViewModel @Inject constructor(
     val state: State<ScheduleState> = _state
 
     init {
-        getSchedule(DATA.person.access, DATA.person.group_id)
+        getSchedule(DATA.person.group_id)
     }
 
-    private fun getSchedule(accessToken : String, groupId : String){
-        getScheduleUseCase(accessToken, groupId).onEach { result ->
+    private fun getSchedule(groupId : String){
+        getScheduleUseCase(groupId).onEach { result ->
             when(result){
                 is Resource.Success -> {
                     var mondayList = mutableListOf<ScheduleSubject>()

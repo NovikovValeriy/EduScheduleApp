@@ -24,11 +24,11 @@ class GradesViewModel @Inject constructor(
     val state: State<GradesState> = _state
 
     init {
-        getStudent(DATA.person.access, DATA.person.student_id)
+        getStudent(DATA.person.student_id)
     }
 
-    private fun getStudent(accessToken: String, studenId : String){
-        getStudentUseCase(accessToken, studenId).onEach { result ->
+    private fun getStudent(studenId : String){
+        getStudentUseCase(studenId).onEach { result ->
             when(result){
                 is Resource.Success -> {
                     var totalList = mutableListOf<Mark>()

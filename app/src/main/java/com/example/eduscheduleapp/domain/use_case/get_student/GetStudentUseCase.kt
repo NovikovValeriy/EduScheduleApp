@@ -1,6 +1,8 @@
 package com.example.eduscheduleapp.domain.use_case.get_student
 
+import com.example.eduscheduleapp.common.DATA
 import com.example.eduscheduleapp.common.Resource
+import com.example.eduscheduleapp.data.remote.dto.ScheduleSubject
 import com.example.eduscheduleapp.data.remote.dto.Student
 import com.example.eduscheduleapp.domain.repository.EduScheduleRepository
 import kotlinx.coroutines.flow.Flow
@@ -13,13 +15,20 @@ class GetStudentUseCase @Inject constructor(
     private val repository: EduScheduleRepository
 ) {
 
-    operator fun invoke(accessToken: String, studentId: String): Flow<Resource<Student>> = flow{
+    operator fun invoke(studentId: String): Flow<Resource<Student>> = flow{
         try {
             emit(Resource.Loading<Student>())
-            val student = repository.getStudent(accessToken, studentId)
+            val student = repository.getStudent(DATA.person.access, studentId)
             emit(Resource.Success<Student>(student))
         } catch (e: HttpException){
-            emit(Resource.Error<Student>("1"))
+            try {
+                repository.refreshToken()
+                val student = repository.getStudent(DATA.person.access, studentId)
+                emit(Resource.Success<Student>(student))
+            }
+            catch (e: HttpException){
+                emit(Resource.Error<Student>("1"))
+            }
         } catch (e: IOException){
             emit(Resource.Error<Student>("2"))
         }

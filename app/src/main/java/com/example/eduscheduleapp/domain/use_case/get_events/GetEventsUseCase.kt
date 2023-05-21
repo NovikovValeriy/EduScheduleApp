@@ -1,5 +1,6 @@
 package com.example.eduscheduleapp.domain.use_case.get_events
 
+import com.example.eduscheduleapp.common.DATA
 import com.example.eduscheduleapp.common.Resource
 import com.example.eduscheduleapp.data.remote.dto.Event
 import com.example.eduscheduleapp.domain.repository.EduScheduleRepository
@@ -13,13 +14,20 @@ class GetEventsUseCase @Inject constructor(
     private val repository: EduScheduleRepository
 ) {
 
-    operator fun invoke(accessToken : String): Flow<Resource<List<Event>>> = flow {
+    operator fun invoke(): Flow<Resource<List<Event>>> = flow {
         try {
             emit(Resource.Loading<List<Event>>())
-            val events = repository.getEvents(accessToken)
+            val events = repository.getEvents(DATA.person.access)
             emit(Resource.Success<List<Event>>(events))
         } catch (e: HttpException){
-            emit(Resource.Error<List<Event>>("1"))
+            try {
+                repository.refreshToken()
+                val events = repository.getEvents(DATA.person.access)
+                emit(Resource.Success<List<Event>>(events))
+            }
+            catch (e: HttpException){
+                emit(Resource.Error<List<Event>>("1"))
+            }
         } catch (e: IOException){
             emit(Resource.Error<List<Event>>("2"))
         }

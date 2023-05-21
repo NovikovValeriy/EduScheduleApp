@@ -8,18 +8,21 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface EduScheduleApi {
-    @POST("api/v1/login")
+    @POST("eduschedule/api/v1/login")
     suspend fun authorization(@Body authRequest: AuthRequest): LoginData
 
-    @GET("api/v1/events/")
+    @GET("eduschedule/api/v1/events/")
     suspend fun getEvents(@Header("Authorization") access : String) : List<Event>
 
-    @GET("api/v1/schedule/{id}")
+    @GET("eduschedule/api/v1/schedule/{id}")
     suspend fun getSchedule(@Header("Authorization") access : String, @Path("id") groupId : String): List<ScheduleSubject>
 
-    @GET("api/v1/student/{id}")
+    @GET("eduschedule/api/v1/student/{id}")
     suspend fun getStudent(@Header("Authorization") access : String, @Path("id") studentId : String): Student
 
-    @GET("api/v1/students")
+    @GET("eduschedule/api/v1/students")
     suspend fun getStudents(@Header("Authorization") access : String): List<Student>
+
+    @POST("token/refresh/")
+    suspend fun refreshToken(@Body refresh : RefreshClass) : AccessClass
 }

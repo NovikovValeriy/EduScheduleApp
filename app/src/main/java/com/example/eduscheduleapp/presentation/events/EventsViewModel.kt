@@ -25,13 +25,13 @@ class EventsViewModel @Inject constructor(
 
 
     init {
-        getEvents(DATA.person.access)
+        getEvents()
     }
 
 
 
-    private fun getEvents(accessToken : String){
-        getEventsUseCase(accessToken).onEach { result ->
+    private fun getEvents(){
+        getEventsUseCase().onEach { result ->
             when(result){
                 is Resource.Success -> {
                     result.data?.forEach{

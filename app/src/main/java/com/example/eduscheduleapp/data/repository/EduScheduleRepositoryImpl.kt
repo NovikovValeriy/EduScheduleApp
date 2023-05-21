@@ -1,5 +1,6 @@
 package com.example.eduscheduleapp.data.repository
 
+import com.example.eduscheduleapp.common.DATA
 import com.example.eduscheduleapp.data.remote.EduScheduleApi
 import com.example.eduscheduleapp.data.remote.dto.*
 import com.example.eduscheduleapp.domain.repository.EduScheduleRepository
@@ -27,5 +28,9 @@ class EduScheduleRepositoryImpl @Inject constructor(
 
     override suspend fun getStudents(accessToken: String): List<Student> {
         return api.getStudents("Bearer $accessToken")
+    }
+
+    override suspend fun refreshToken() {
+        DATA.person.access = api.refreshToken(RefreshClass(DATA.person.refresh)).access
     }
 }

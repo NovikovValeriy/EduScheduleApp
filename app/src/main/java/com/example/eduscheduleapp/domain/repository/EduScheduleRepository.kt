@@ -14,4 +14,6 @@ interface EduScheduleRepository {
     suspend fun getStudent(accessToken: String, studentId: String): Student
 
     suspend fun getStudents(accessToken : String): List<Student>
+
+    suspend fun refreshToken()
 }

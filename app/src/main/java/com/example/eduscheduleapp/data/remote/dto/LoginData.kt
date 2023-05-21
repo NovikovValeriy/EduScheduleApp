@@ -1,7 +1,7 @@
 package com.example.eduscheduleapp.data.remote.dto
 
 data class LoginData(
-    val access : String,
+    var access : String,
     val refresh : String,
     val login : String,
     val status : String,

@@ -26,11 +26,11 @@ class RatingViewModel @Inject constructor(
     val state: State<RatingState> = _state
 
     init {
-        getStudents(DATA.person.access)
+        getStudents()
     }
 
-    private fun getStudents(accessToken: String){
-        getStudentsUseCase(accessToken).onEach { result ->
+    private fun getStudents(){
+        getStudentsUseCase().onEach { result ->
             when(result){
                 is Resource.Success -> {
                     result.data?.forEach {
