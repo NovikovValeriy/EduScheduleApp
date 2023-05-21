@@ -24,10 +24,12 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.eduschedule.graphs.AuthScreen
+import com.example.eduscheduleapp.R
 import com.example.eduscheduleapp.common.DATA
 import com.example.eduscheduleapp.data.remote.dto.AuthRequest
 import com.example.eduscheduleapp.graphs.Graph
@@ -64,7 +66,7 @@ fun LoginScreen(
                 modifier = Modifier.width(300.dp),
                 value = loginText,
                 onValueChange = { loginText = it },
-                label = { Text("Логин") },
+                label = { Text(stringResource(id = R.string.login_text)) },
                 singleLine = true
             )
         }
@@ -74,7 +76,7 @@ fun LoginScreen(
                 modifier = Modifier.width(300.dp),
                 value = passwordText,
                 onValueChange = { passwordText = it },
-                label = { Text("Пароль") },
+                label = { Text(stringResource(id = R.string.password_text)) },
                 singleLine = true,
                 visualTransformation =
                 if (passwordHidden) PasswordVisualTransformation() else VisualTransformation.None,
@@ -100,15 +102,19 @@ fun LoginScreen(
                 },
                 modifier = Modifier.width(300.dp)
             ) {
-                Text(text = "Войти")
+                Text(text = stringResource(id = R.string.button_text))
             }
             if (state.error.isNotBlank()) {
                 Text(
-                    text = state.error
+                    text = when(state.error){
+                        "1" -> stringResource(id = R.string.incorrect_credentials_text)
+                        "2" -> stringResource(id = R.string.connection_error_text)
+                        else -> ""
+                    }
                 )
             }
             else if (state.isLoading){
-                Text(text = "Загрузка...")
+                Text(text = stringResource(id = R.string.loading_text))
             }
             else{
                 Text(

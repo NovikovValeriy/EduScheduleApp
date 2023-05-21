@@ -19,9 +19,9 @@ class GetStudentUseCase @Inject constructor(
             val student = repository.getStudent(accessToken, studentId)
             emit(Resource.Success<Student>(student))
         } catch (e: HttpException){
-            emit(Resource.Error<Student>(e.localizedMessage ?: "Непредвиденная ошибка сервера."))
+            emit(Resource.Error<Student>("1"))
         } catch (e: IOException){
-            emit(Resource.Error<Student>("Ошибка подключения. Проверьте соединение с сетью."))
+            emit(Resource.Error<Student>("2"))
         }
     }
 }

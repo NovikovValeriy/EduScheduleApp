@@ -11,11 +11,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.eduscheduleapp.R
 import com.example.eduscheduleapp.data.remote.dto.Mark
 import com.example.eduscheduleapp.ui.theme.EduScheduleAppTheme
 
@@ -44,14 +46,14 @@ fun RatingScreen(
                             thickness = 0.dp,
                             color = Color.White
                         )
-                        Text(text = "ФИО", modifier = Modifier.weight(0.47f), fontSize = 18.sp)
+                        Text(text = stringResource(id = R.string.FIO_text), modifier = Modifier.weight(0.47f), fontSize = 18.sp)
                         Text(
-                            text = "Класс",
+                            text = stringResource(id = R.string.group_text),
                             modifier = Modifier.weight(0.45f),
                             fontSize = 18.sp
                         )
                         Text(
-                            text = "Ср. балл",
+                            text = stringResource(id = R.string.GPA_rating_text),
                             fontSize = 18.sp,
                             modifier = Modifier.weight(0.3f)
                         )
@@ -95,7 +97,11 @@ fun RatingScreen(
         }
         if(state.error.isNotBlank()) {
             Text(
-                text = state.error,
+                text = when(state.error){
+                    "1" -> stringResource(id = R.string.server_error_text)
+                    "2" -> stringResource(id = R.string.connection_error_text)
+                    else -> ""
+                },
                 color = MaterialTheme.colors.error,
                 textAlign = TextAlign.Center,
                 modifier = Modifier

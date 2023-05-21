@@ -7,10 +7,8 @@ import androidx.navigation.compose.composable
 import com.example.eduscheduleapp.BottomBar
 import com.example.eduscheduleapp.presentation.events.EventsScreen
 import com.example.eduscheduleapp.presentation.grades.GradesScreen
-import com.example.eduscheduleapp.presentation.profile.ProfileScreen
 import com.example.eduscheduleapp.presentation.rating.RatingScreen
 import com.example.eduscheduleapp.presentation.schedule.ScheduleScreen
-import com.example.eduscheduleapp.presentation.screen.ScreenContent
 
 @Composable
 fun HomeNavGraph(navController: NavHostController) {

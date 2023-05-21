@@ -19,9 +19,9 @@ class GetEventsUseCase @Inject constructor(
             val events = repository.getEvents(accessToken)
             emit(Resource.Success<List<Event>>(events))
         } catch (e: HttpException){
-            emit(Resource.Error<List<Event>>(e.localizedMessage ?: "Непредвиденная ошибка сервера."))
+            emit(Resource.Error<List<Event>>("1"))
         } catch (e: IOException){
-            emit(Resource.Error<List<Event>>("Ошибка подключения. Проверьте соединение с сетью."))
+            emit(Resource.Error<List<Event>>("2"))
         }
     }
 }

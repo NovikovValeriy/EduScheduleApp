@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">EduScheduleApp</string>
+    <string name="login_text">Лагін</string>
+    <string name="password_text">Пароль</string>
+    <string name="button_text">Увайсці</string>
+    <string name="loading_text">Загрузка...</string>
+    <string name="connection_error_text">Памылка падключэння. Праверце злучэнне з сеткай.</string>
+    <string name="incorrect_credentials_text">Няправільны лагін або пароль.</string>
+    <string name="grades_text">Адзнакі</string>
+    <string name="rating_text">Рэйтынг</string>
+    <string name="schedule_text">Расклад</string>
+    <string name="events_text">Падзеі</string>
+    <string name="group_text">Клас</string>
+    <string name="GPA_text">Сярэдні бал</string>
+    <string name="no_grades_text">Адзнак няма</string>
+    <string name="no_lessons_text">Заняткаў няма</string>
+    <string name="bel_lang_text">Беларуская мова</string>
+    <string name="bel_lit_text">Беларуская літаратура</string>
+    <string name="rus_lang_text">Руская мова</string>
+    <string name="rus_lit_text">Руская літаратура</string>
+    <string name="eng_lang_text">Замежная мова</string>
+    <string name="math_text">Матэматыка</string>
+    <string name="inf_text">Інфарматыка</string>
+    <string name="history_text">Гісторыя</string>
+    <string name="society_text">Грамадазнаўства</string>
+    <string name="geography_text">Геаграфія</string>
+    <string name="biology_text">Біялогія</string>
+    <string name="physics_text">Фізіка</string>
+    <string name="astronomy_text">Астраномія</string>
+    <string name="chemistry_text">Хімія</string>
+    <string name="FIO_text">ПІІпб</string>
+    <string name="GPA_rating_text">Сяр. бал</string>
+    <string name="monday_text">Панядзелак</string>
+    <string name="tuesday_text">Аўторак</string>
+    <string name="wednesday_text">Серада</string>
+    <string name="thursday_text">Чацвер</string>
+    <string name="friday_text">Пятніца</string>
+    <string name="room_text">Кабінет</string>
+    <string name="server_error_text">Непрадбачаная памылка сервера.</string>
+</resources>

@@ -30,6 +30,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -93,7 +94,11 @@ fun EventsScreen(
         Spacer(modifier = Modifier.padding(vertical = 20.dp))
         if(state.error.isNotBlank()) {
             Text(
-                text = state.error,
+                text = when(state.error){
+                    "1" -> stringResource(id = R.string.server_error_text)
+                    "2" -> stringResource(id = R.string.connection_error_text)
+                    else -> ""
+                },
                 color = MaterialTheme.colors.error,
                 textAlign = TextAlign.Center,
                 modifier = Modifier

@@ -20,9 +20,9 @@ class GetScheduleUseCase @Inject constructor(
             val schedule = repository.getSchedule(accessToken, groupId)
             emit(Resource.Success<List<ScheduleSubject>>(schedule))
         } catch (e: HttpException){
-            emit(Resource.Error<List<ScheduleSubject>>(e.localizedMessage ?: "Непредвиденная ошибка сервера."))
+            emit(Resource.Error<List<ScheduleSubject>>("1"))
         } catch (e: IOException){
-            emit(Resource.Error<List<ScheduleSubject>>("Ошибка подключения. Проверьте соединение с сетью."))
+            emit(Resource.Error<List<ScheduleSubject>>("2"))
         }
     }
 }

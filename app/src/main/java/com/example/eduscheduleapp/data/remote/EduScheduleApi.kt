@@ -8,7 +8,7 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface EduScheduleApi {
-    @POST("login")
+    @POST("api/v1/login")
     suspend fun authorization(@Body authRequest: AuthRequest): LoginData
 
     @GET("api/v1/events/")

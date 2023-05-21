@@ -8,6 +8,7 @@ import com.example.eduscheduleapp.common.DATA
 import com.example.eduscheduleapp.common.Resource
 import com.example.eduscheduleapp.data.remote.dto.Mark
 import com.example.eduscheduleapp.domain.use_case.get_students.GetStudentsUseCase
+import com.example.eduscheduleapp.presentation.grades.roundOffDecimal
 import com.example.eduscheduleapp.presentation.schedule.ScheduleState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
@@ -60,9 +61,9 @@ class RatingViewModel @Inject constructor(
         return GPA
     }
 
-    private fun roundOffDecimal(number: Double): Double? {
+    /*private fun roundOffDecimal(number: Double): Double? {
         val df = DecimalFormat("#.##")
         df.roundingMode = RoundingMode.CEILING
         return df.format(number).toDouble()
-    }
+    }*/
 }

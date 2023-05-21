@@ -18,11 +18,14 @@ class AuthorizationUseCase @Inject constructor(
         try{
             emit(Resource.Loading<LoginData>())
             val loginData = repository.authorization(authRequest)
-            emit(Resource.Success<LoginData>(loginData))
+            if(loginData.status == "teacher"){
+                emit(Resource.Error<LoginData>("1"))
+            }
+            else emit(Resource.Success<LoginData>(loginData))
         } catch (e: HttpException){
-            emit(Resource.Error<LoginData>(/*e.localizedMessage ?: */"Неправильный логин или пароль"))
+            emit(Resource.Error<LoginData>("1"))
         } catch (e: IOException){
-            emit(Resource.Error<LoginData>("Ошибка подключения. Проверьте соединение с сетью."))
+            emit(Resource.Error<LoginData>("2"))
         }
     }
 }

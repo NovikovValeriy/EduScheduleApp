@@ -15,12 +15,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.eduscheduleapp.R
 import com.example.eduscheduleapp.data.remote.dto.ScheduleSubject
 import com.example.eduscheduleapp.ui.theme.EduScheduleAppTheme
 
@@ -40,18 +42,34 @@ fun ScheduleScreen(
                     listOf("Понедельник", "Вторник", "Среда", "Четверг", "Пятница")
                 ) { _, item ->
                     var list = mutableListOf<ScheduleSubject>()
+                    var itemText = ""
                     when (item) {
-                        "Понедельник" -> list = state.mondayList ?: mutableListOf<ScheduleSubject>()
-                        "Вторник" -> list = state.tuesdayList ?: mutableListOf<ScheduleSubject>()
-                        "Среда" -> list = state.wednesdayList ?: mutableListOf<ScheduleSubject>()
-                        "Четверг" -> list = state.thursdayList ?: mutableListOf<ScheduleSubject>()
-                        "Пятница" -> list = state.fridayList ?: mutableListOf<ScheduleSubject>()
+                        "Понедельник" -> {
+                            list = state.mondayList ?: mutableListOf<ScheduleSubject>()
+                            itemText = stringResource(id = R.string.monday_text)
+                        }
+                        "Вторник" -> {
+                            list = state.tuesdayList ?: mutableListOf<ScheduleSubject>()
+                            itemText = stringResource(id = R.string.tuesday_text)
+                        }
+                        "Среда" -> {
+                            list = state.wednesdayList ?: mutableListOf<ScheduleSubject>()
+                            itemText = stringResource(id = R.string.wednesday_text)
+                        }
+                        "Четверг" -> {
+                            list = state.thursdayList ?: mutableListOf<ScheduleSubject>()
+                            itemText = stringResource(id = R.string.thursday_text)
+                        }
+                        "Пятница" -> {
+                            list = state.fridayList ?: mutableListOf<ScheduleSubject>()
+                            itemText = stringResource(id = R.string.friday_text)
+                        }
                     }
                     Column(
                         modifier = Modifier.fillMaxSize()
                     ) {
                         Text(
-                            text = item,
+                            text = itemText,
                             fontSize = 25.sp,
                             fontWeight = FontWeight.SemiBold,
                             modifier = Modifier.padding(vertical = 5.dp)
@@ -69,7 +87,7 @@ fun ScheduleScreen(
                                 contentAlignment = Alignment.Center
                             ) {
                                 Text(
-                                    text = "Занятий нет",
+                                    text = stringResource(id = R.string.no_lessons_text),
                                     fontSize = 20.sp,
                                     modifier = Modifier.padding(vertical = 20.dp)
                                 )
@@ -87,7 +105,25 @@ fun ScheduleScreen(
                                     )
                             ) {
                                 Text(
-                                    text = it.class_name,
+                                    text =
+                                    when(it.class_name){
+                                        "Белорусский язык" -> stringResource(id = R.string.bel_lang_text)
+                                        "Белорусская литература" -> stringResource(id = R.string.bel_lit_text)
+                                        "Русский язык" -> stringResource(id = R.string.rus_lang_text)
+                                        "Русская литература" -> stringResource(id = R.string.rus_lit_text)
+                                        "Иностранный язык" -> stringResource(id = R.string.eng_lang_text)
+                                        "Математика" -> stringResource(id = R.string.math_text)
+                                        "Информатика" -> stringResource(id = R.string.inf_text)
+                                        "История" -> stringResource(id = R.string.history_text)
+                                        "Обществоведение" -> stringResource(id = R.string.society_text)
+                                        "География" -> stringResource(id = R.string.geography_text)
+                                        "Биология" -> stringResource(id = R.string.biology_text)
+                                        "Физика" -> stringResource(id = R.string.physics_text)
+                                        "Астрономия" -> stringResource(id = R.string.astronomy_text)
+                                        "Химия" -> stringResource(id = R.string.chemistry_text)
+                                        else -> ""
+                                    }
+                                    /*it.class_name*/,
                                     modifier = Modifier.padding(all = 10.dp),
                                     fontSize = 20.sp,
                                     fontWeight = FontWeight.Medium
@@ -97,7 +133,7 @@ fun ScheduleScreen(
                                     horizontalArrangement = Arrangement.SpaceBetween
                                 ) {
                                     Text(
-                                        text = "Кабинет ${it.classroom}",
+                                        text = "${stringResource(id = R.string.room_text)} ${it.classroom}",
                                         modifier = Modifier.padding(all = 10.dp)
                                     )
                                     Text(
@@ -115,7 +151,11 @@ fun ScheduleScreen(
         }
         if(state.error.isNotBlank()) {
             Text(
-                text = state.error,
+                text = when(state.error){
+                    "1" -> stringResource(id = R.string.server_error_text)
+                    "2" -> stringResource(id = R.string.connection_error_text)
+                    else -> ""
+                },
                 color = MaterialTheme.colors.error,
                 textAlign = TextAlign.Center,
                 modifier = Modifier
@@ -136,43 +176,4 @@ fun SchedulePreview(){
     EduScheduleAppTheme {
         ScheduleScreen()
     }
-}
-
-sealed class SubjectField(val name: String?, val room: Int = 0, val teacherName: String?){
-
-    object math: SubjectField(
-        name = "Математика",
-        room = 112,
-        teacherName = "Копосова П.Г."
-    )
-
-    object bel: SubjectField(
-        name = "Белорусский язык",
-        room = 310,
-        teacherName = "Метельский А.А."
-    )
-
-    object rus: SubjectField(
-        name = "Русский язык",
-        room = 220,
-        teacherName = "Чаевская Т.А."
-    )
-
-    object fiz: SubjectField(
-        name = "Физика",
-        room = 106,
-        teacherName = "Храмович Е.М."
-    )
-
-    object ist: SubjectField(
-        name = "История",
-        room = 104,
-        teacherName = "Вашкевич И.В."
-    )
-
-    object bio: SubjectField(
-        name = "Биология",
-        room = 420,
-        teacherName = "Перепелко А.С."
-    )
 }
