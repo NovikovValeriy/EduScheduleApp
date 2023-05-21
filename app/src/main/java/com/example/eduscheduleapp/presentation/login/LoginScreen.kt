@@ -90,8 +90,9 @@ fun LoginScreen(
                 }
             )
         }
+        Spacer(modifier = Modifier.height(20.dp))
         Column(
-            modifier = Modifier.aspectRatio(1f),
+            modifier = Modifier.width(300.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Button(
@@ -110,7 +111,9 @@ fun LoginScreen(
                         "1" -> stringResource(id = R.string.incorrect_credentials_text)
                         "2" -> stringResource(id = R.string.connection_error_text)
                         else -> ""
-                    }
+                    },
+                    modifier = Modifier.width(300.dp),
+                    textAlign = TextAlign.Center
                 )
             }
             else if (state.isLoading){
