@@ -27,8 +27,11 @@ import androidx.compose.ui.unit.sp
 import com.example.eduscheduleapp.ui.theme.EduScheduleAppTheme
 import kotlin.math.ceil
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
@@ -40,6 +43,7 @@ import coil.compose.SubcomposeAsyncImage
 import coil.compose.rememberAsyncImagePainter
 import com.example.eduscheduleapp.R
 import com.example.eduscheduleapp.common.Constants
+import com.example.eduscheduleapp.data.remote.dto.Event
 
 @Composable
 fun EventsScreen(
@@ -57,13 +61,13 @@ fun EventsScreen(
                     .fillMaxSize()
                     .padding(vertical = 10.dp)
                 ) {
-                    Column(
+                    /*Column(
                         modifier = Modifier
                             .fillMaxSize()
                             .border(2.dp, color = Color.Gray, shape = RoundedCornerShape(7.dp))
                     ) {
                         if(event.photo != null) {
-                            /*AsyncImage(
+                            *//*AsyncImage(
                                 model = Constants.BASE_URL + "eduschedule/api/v1/events/photo/${event.id}/",
                                 contentDescription = null,
                                 modifier = Modifier
@@ -71,7 +75,7 @@ fun EventsScreen(
                                     .fillMaxSize()
                                     .clip(RoundedCornerShape(7.dp)),
                                 contentScale = ContentScale.Crop
-                            )*/
+                            )*//*
                             SubcomposeAsyncImage(
                                 model = Constants.BASE_URL + "eduschedule/api/v1/events/photo/${event.id}/",
                                 contentDescription = null,
@@ -106,7 +110,8 @@ fun EventsScreen(
                             text = event.description,
                             modifier = Modifier.padding(all = 10.dp)
                         )
-                    }
+                    }*/
+                    EventItem(event = event)
                 }
                 //Spacer(modifier = Modifier.height(25.dp))
             }
@@ -133,6 +138,77 @@ fun EventsScreen(
         }
     }
 
+}
+
+@Composable
+fun EventItem(event : Event) {
+    val expandedState = remember { mutableStateOf(false) }
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .border(2.dp, color = Color.Gray, shape = RoundedCornerShape(7.dp))
+            .clickable { expandedState.value = !expandedState.value }
+    ) {
+        if(event.photo != null) {
+            /*AsyncImage(
+                model = Constants.BASE_URL + "eduschedule/api/v1/events/photo/${event.id}/",
+                contentDescription = null,
+                modifier = Modifier
+                    .padding(all = 10.dp)
+                    .fillMaxSize()
+                    .clip(RoundedCornerShape(7.dp)),
+                contentScale = ContentScale.Crop
+            )*/
+            SubcomposeAsyncImage(
+                model = Constants.BASE_URL + "eduschedule/api/v1/events/photo/${event.id}/",
+                contentDescription = null,
+                loading = {
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        CircularProgressIndicator()
+                    }
+                },
+                modifier = Modifier
+                    .padding(all = 10.dp)
+                    .fillMaxSize()
+                    .clip(RoundedCornerShape(7.dp)),
+                contentScale = ContentScale.Crop
+            )
+        }
+        Text(
+            text = event.date,
+            modifier = Modifier.padding(horizontal = 10.dp, vertical = 10.dp),
+            fontStyle = FontStyle.Italic,
+            fontWeight = FontWeight.Medium
+        )
+        Text(
+            text = event.name,
+            fontSize = 20.sp,
+            fontWeight = FontWeight.Medium,
+            modifier = Modifier.padding(horizontal = 10.dp)
+        )
+        if (expandedState.value) {
+            Text(
+                text = event.description,
+                modifier = Modifier.padding(all = 10.dp)
+            )
+        } else {
+            val maxLength = 200
+            if(event.description.length < maxLength){
+                Text(
+                    text = event.description,
+                    modifier = Modifier.padding(all = 10.dp)
+                )
+            }
+            else Text(modifier = Modifier.padding(all = 10.dp), text = event.description.take(maxLength) + "...")
+        }/*
+        Text(
+            text = event.description,
+            modifier = Modifier.padding(all = 10.dp)
+        )*/
+    }
 }
 
 @Preview(showBackground = true, showSystemUi = true)
