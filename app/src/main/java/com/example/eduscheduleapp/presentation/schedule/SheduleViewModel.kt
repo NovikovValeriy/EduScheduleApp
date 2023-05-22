@@ -53,7 +53,7 @@ class SheduleViewModel @Inject constructor(
                             }
                         }
                     }
-                    _state.value = ScheduleState(schedule = result.data!!, mondayList = mondayList, tuesdayList = tuesdayList, wednesdayList = wednesdayList, thursdayList = thursdayList, fridayList = fridayList)
+                    _state.value = ScheduleState(schedule = result.data!!, result = true ,mondayList = mondayList, tuesdayList = tuesdayList, wednesdayList = wednesdayList, thursdayList = thursdayList, fridayList = fridayList)
                 }
                 is Resource.Error -> {
                     _state.value = ScheduleState(

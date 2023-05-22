@@ -37,7 +37,7 @@ fun GradesScreen(
 ){
     val state = viewModel.state.value
     Box(modifier = Modifier.fillMaxSize()) {
-        if(!state.totalList.isNullOrEmpty()) {
+        if(state.student != null) {
             Column {
                 Column(
                     modifier = Modifier

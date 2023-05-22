@@ -4,6 +4,7 @@ import com.example.eduscheduleapp.data.remote.dto.ScheduleSubject
 
 data class ScheduleState(
     val isLoading: Boolean = false,
+    val result: Boolean = false,
     var schedule: List<ScheduleSubject> = emptyList(),
     var mondayList: MutableList<ScheduleSubject>? = null,
     var tuesdayList: MutableList<ScheduleSubject>? = null,

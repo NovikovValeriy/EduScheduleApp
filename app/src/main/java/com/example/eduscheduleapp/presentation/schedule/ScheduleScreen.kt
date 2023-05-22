@@ -32,7 +32,7 @@ fun ScheduleScreen(
 ){
     val state = viewModel.state.value
     Box(modifier = Modifier.fillMaxSize()) {
-        if(!state.schedule.isNullOrEmpty()) {
+        if(state.result) {
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()
