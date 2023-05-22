@@ -26,7 +26,8 @@ fun RatingScreen(
     viewModel: RatingViewModel = hiltViewModel()
 ) {
     val state = viewModel.state.value
-    val list = state.students.sortedByDescending { it.GPA }
+    var list = state.students.sortedByDescending { it.GPA }
+    var ind = 0
     Box(modifier = Modifier.fillMaxSize()){
         if(!state.students.isNullOrEmpty()) {
             LazyColumn(
@@ -49,7 +50,7 @@ fun RatingScreen(
                         Text(text = stringResource(id = R.string.FIO_text), modifier = Modifier.weight(0.47f), fontSize = 18.sp)
                         Text(
                             text = stringResource(id = R.string.group_text),
-                            modifier = Modifier.weight(0.45f),
+                            modifier = Modifier.weight(0.4f),
                             fontSize = 18.sp
                         )
                         Text(
@@ -63,35 +64,44 @@ fun RatingScreen(
                 itemsIndexed(
                     list
                 ) { index, item ->
-                    Row(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(vertical = 2.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Text(text = (index + 1).toString() + ". ", fontSize = 18.sp)
-                        Text(text = item.name, modifier = Modifier.weight(1f), fontSize = 18.sp)
+                    if(item.name != "Null") {
+                        ind++
+                        Row(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(vertical = 2.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Text(text = ind.toString() + ". ", fontSize = 18.sp)
+                            Text(text = item.name, modifier = Modifier.weight(0.6f), fontSize = 18.sp)
+                            Divider(
+                                modifier = Modifier.width(40.dp),
+                                thickness = 0.dp,
+                                color = Color.White
+                            )
+                            Text(
+                                text = item.group_name,
+                                modifier = Modifier.weight(0.5f),
+                                fontSize = 18.sp
+                            )
+                            Text(
+                                text = if(item.GPA.toString() != "0.0") {
+                                    item.GPA.toString()
+                                }
+                                else{ 
+                                    stringResource(id = R.string.no_grades_text)    
+                                },
+                                fontSize = 18.sp,
+                                modifier = Modifier.weight(0.4f),
+                                textAlign = TextAlign.Center
+                            )
+                        }
                         Divider(
-                            modifier = Modifier.width(40.dp),
-                            thickness = 0.dp,
-                            color = Color.White
-                        )
-                        Text(
-                            text = item.group_name,
-                            modifier = Modifier.weight(1f),
-                            fontSize = 18.sp
-                        )
-                        Text(
-                            text = item.GPA.toString(),
-                            fontSize = 18.sp,
-                            modifier = Modifier.weight(0.4f)
+                            color = Color.LightGray, thickness = 1.dp, modifier = Modifier.clip(
+                                RoundedCornerShape(1.dp)
+                            )
                         )
                     }
-                    Divider(
-                        color = Color.LightGray, thickness = 1.dp, modifier = Modifier.clip(
-                            RoundedCornerShape(1.dp)
-                        )
-                    )
                 }
             }
         }

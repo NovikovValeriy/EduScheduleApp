@@ -36,6 +36,7 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
+import coil.compose.SubcomposeAsyncImage
 import coil.compose.rememberAsyncImagePainter
 import com.example.eduscheduleapp.R
 import com.example.eduscheduleapp.common.Constants
@@ -62,9 +63,26 @@ fun EventsScreen(
                             .border(2.dp, color = Color.Gray, shape = RoundedCornerShape(7.dp))
                     ) {
                         if(event.photo != null) {
-                            AsyncImage(
+                            /*AsyncImage(
                                 model = Constants.BASE_URL + "eduschedule/api/v1/events/photo/${event.id}/",
                                 contentDescription = null,
+                                modifier = Modifier
+                                    .padding(all = 10.dp)
+                                    .fillMaxSize()
+                                    .clip(RoundedCornerShape(7.dp)),
+                                contentScale = ContentScale.Crop
+                            )*/
+                            SubcomposeAsyncImage(
+                                model = Constants.BASE_URL + "eduschedule/api/v1/events/photo/${event.id}/",
+                                contentDescription = null,
+                                loading = {
+                                    Box(
+                                        modifier = Modifier.fillMaxSize(),
+                                        contentAlignment = Alignment.Center
+                                    ) {
+                                        CircularProgressIndicator()
+                                    }
+                                },
                                 modifier = Modifier
                                     .padding(all = 10.dp)
                                     .fillMaxSize()
