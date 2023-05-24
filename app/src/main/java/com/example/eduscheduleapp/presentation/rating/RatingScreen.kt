@@ -12,12 +12,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.eduscheduleapp.R
+import com.example.eduscheduleapp.common.DATA
 import com.example.eduscheduleapp.data.remote.dto.Mark
 import com.example.eduscheduleapp.ui.theme.EduScheduleAppTheme
 
@@ -27,7 +29,6 @@ fun RatingScreen(
 ) {
     val state = viewModel.state.value
     var list = state.students.sortedByDescending { it.GPA }
-    var ind = 0
     Box(modifier = Modifier.fillMaxSize()){
         if(!state.students.isNullOrEmpty()) {
             LazyColumn(
@@ -64,44 +65,51 @@ fun RatingScreen(
                 itemsIndexed(
                     list
                 ) { index, item ->
-                    if(item.name != "Null") {
-                        ind++
-                        Row(
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .padding(vertical = 2.dp),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Text(text = ind.toString() + ". ", fontSize = 18.sp)
-                            Text(text = item.name, modifier = Modifier.weight(0.6f), fontSize = 18.sp)
-                            Divider(
-                                modifier = Modifier.width(40.dp),
-                                thickness = 0.dp,
-                                color = Color.White
-                            )
-                            Text(
-                                text = item.group_name,
-                                modifier = Modifier.weight(0.5f),
-                                fontSize = 18.sp
-                            )
-                            Text(
-                                text = if(item.GPA.toString() != "0.0") {
-                                    item.GPA.toString()
-                                }
-                                else{ 
-                                    stringResource(id = R.string.no_grades_text)    
-                                },
-                                fontSize = 18.sp,
-                                modifier = Modifier.weight(0.4f),
-                                textAlign = TextAlign.Center
-                            )
-                        }
+                    var clr = Color.Black
+                    var wght = FontWeight.Normal
+                    if(item.name == DATA.person.name) {
+                        clr = Color.Red
+                        wght = FontWeight.SemiBold
+                    }
+                    Row(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(vertical = 2.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(text = (index + 1).toString() + ". ", fontSize = 18.sp, color = clr, fontWeight = wght)
+                        Text(text = item.name, modifier = Modifier.weight(0.6f), fontSize = 18.sp, color = clr, fontWeight = wght)
                         Divider(
-                            color = Color.LightGray, thickness = 1.dp, modifier = Modifier.clip(
-                                RoundedCornerShape(1.dp)
-                            )
+                            modifier = Modifier.width(40.dp),
+                            thickness = 0.dp,
+                            color = Color.White
+                        )
+                        Text(
+                            text = item.group_name,
+                            modifier = Modifier.weight(0.5f),
+                            fontSize = 18.sp,
+                            color = clr,
+                            fontWeight = wght
+                        )
+                        Text(
+                            text = if(item.GPA.toString() != "0.0") {
+                                item.GPA.toString()
+                            }
+                            else{
+                                stringResource(id = R.string.no_grades_text)
+                            },
+                            fontSize = 18.sp,
+                            modifier = Modifier.weight(0.4f),
+                            textAlign = TextAlign.Center,
+                            color = clr,
+                            fontWeight = wght
                         )
                     }
+                    Divider(
+                        color = Color.LightGray, thickness = 1.dp, modifier = Modifier.clip(
+                            RoundedCornerShape(1.dp)
+                        )
+                    )
                 }
             }
         }
