@@ -62,18 +62,18 @@ fun LoginScreen(
             modifier = Modifier
                 .fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Spacer(modifier = Modifier.height(100.dp))
-            /*Text(
-            text = "EduSchedule",
-            fontWeight = FontWeight.Bold,
-            fontSize = 40.sp
-        )*/
-            Image(
+            Spacer(modifier = Modifier.height(200.dp))
+            Text(
+                text = "EduSchedule",
+                fontWeight = FontWeight.Bold,
+                fontSize = 50.sp
+            )
+            /*Image(
                 painter = painterResource(id = R.drawable.loginlogo),
                 contentDescription = null,
                 modifier = Modifier.size(300.dp)
-            )
-            Spacer(modifier = Modifier.height(20.dp))
+            )*/
+            Spacer(modifier = Modifier.height(100.dp))
             Column() {
                 OutlinedTextField(
                     modifier = Modifier

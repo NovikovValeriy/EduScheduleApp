@@ -56,7 +56,7 @@ fun EventsScreen(
                 .fillMaxSize()
                 .padding(horizontal = 10.dp)
         ) {
-            items(state.events){event ->
+            items(state.events.asReversed()){event ->
                 Column(modifier = Modifier
                     .fillMaxSize()
                     .padding(vertical = 10.dp)
