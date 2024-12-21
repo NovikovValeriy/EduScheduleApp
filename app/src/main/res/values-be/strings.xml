@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">EduScheduleApp</string>
     <string name="login_text">Лагін</string>
     <string name="password_text">Пароль</string>
     <string name="button_text">Увайсці</string>

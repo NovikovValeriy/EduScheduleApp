@@ -111,6 +111,9 @@ fun RatingScreen(
                         )
                     )
                 }
+                item {
+                    Spacer(modifier = Modifier.padding(vertical = 25.dp))
+                }
             }
         }
         if(state.error.isNotBlank()) {

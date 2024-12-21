@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">EduScheduleApp</string>
+    <string name="app_name">EduSchedule</string>
     <string name="login_text">Логин</string>
     <string name="password_text">Пароль</string>
     <string name="button_text">Войти</string>
